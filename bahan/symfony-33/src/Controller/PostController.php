@@ -26,18 +26,17 @@ class PostController extends AbstractController
         return $this->render('post/show.html.twig');
     }
 
-    #[Route('/post/{id}/delete', methods: ['POST'], name: 'posts.delete')]
-    public function delete($id): Response
-    {
-        return new Response('delete post from the database');
-    }
-
     #[Route('/post/{id}/edit', methods: ['GET', 'POST'], name: 'posts.edit')]
     public function edit($id): Response
     {
         // return $this->redirectToRoute('posts.index');
-
         return $this->render('post/edit.html.twig');
+    }
+
+    #[Route('/post/{id}/delete', methods: ['POST'], name: 'posts.delete')]
+    public function delete($id): Response
+    {
+        return new Response('delete post from the database');
     }
 
     #[Route('/posts/user/{id}', methods: ['GET'], name: 'posts.user')]
@@ -47,21 +46,11 @@ class PostController extends AbstractController
         return $this->render('post/index.html.twig');
     }
 
-
     #[Route('/toggleFollow/{user}', methods: ['GET'], name: 'toggleFollow')]
     public function toggleFollow($user): Response
     {
         // return new Response($user);
         return new Response('logic for toggling like/dislike functionality');
     }
-
-
-    // #[Route('/post', name: 'app_post')]
-    // public function index(): JsonResponse
-    // {
-    //     return $this->json([
-    //         'message' => 'Welcome to your new controller!',
-    //         'path' => 'src/Controller/PostController.php',
-    //     ]);
-    // }
 }
+
