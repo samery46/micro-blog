@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Image;
 use App\Form\DeleteAccountFormType;
 use App\Form\ChangePasswordFormType;
 use App\Form\ImageFormType;
 use App\Form\UserFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +24,7 @@ class DashboardController extends AbstractController
     #[Route('/dashboard/profile', name: 'app_profile')]
     public function profile(Request $request): Response
     {
-        // change image        
+        // change image
         $image = new Image();
         $imageForm = $this->createForm(ImageFormType::class, $image);
         $imageForm->handleRequest($request);
@@ -38,6 +36,7 @@ class DashboardController extends AbstractController
             );
             return $this->redirectToRoute('app_profile');
         }
+
         // change user email, name
         $user = $this->getUser();
         $userForm = $this->createForm(UserFormType::class, $user);
@@ -68,7 +67,7 @@ class DashboardController extends AbstractController
         // delete account
         $deleteAccountForm = $this->createForm(DeleteAccountFormType::class, $user);
         $deleteAccountForm->handleRequest($request);
-
+        
         if ($deleteAccountForm->isSubmitted() && $deleteAccountForm->isValid()) {
             $user = $deleteAccountForm->getData();
             return $this->redirectToRoute('app_profile');
@@ -82,3 +81,4 @@ class DashboardController extends AbstractController
         ]);
     }
 }
+
