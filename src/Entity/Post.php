@@ -21,7 +21,7 @@ class Post
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
     #[Assert\Length(
-        max: 20,
+        max: 100,
         maxMessage: 'Title too long',
     )]
     private ?string $title = null;
@@ -29,7 +29,7 @@ class Post
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
     #[Assert\Length(
-        max: 1000,
+        max: 10000,
         maxMessage: 'Content too long',
     )]
     private ?string $content = null;
@@ -39,6 +39,10 @@ class Post
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
 
     public function getId(): ?int
@@ -90,6 +94,18 @@ class Post
     public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
