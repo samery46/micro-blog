@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+// use Symfony\Component\HttpFoundation\File\Exception\FileException;
+// use App\Services\ImageUploader;
 
 class DashboardController extends AbstractController
 {
@@ -28,7 +30,7 @@ class DashboardController extends AbstractController
     #[Route('/dashboard/profile', name: 'app_profile')]
     public function profile(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
-        // change image        
+        // change image
         $image = new Image();
         $imageForm = $this->createForm(ImageFormType::class, $image);
         $imageForm->handleRequest($request);
